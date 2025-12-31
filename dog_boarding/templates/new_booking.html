@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="card" style="max-width:700px;">
+  <h2>New Booking</h2>
+  <form method="post">
+    <label>Check-In Date</label>
+    <input type="date" name="start_date" value="{{ start_date }}" required>
+    <label>Check-Out Date</label>
+    <input type="date" name="end_date" value="{{ end_date }}" required>
+    <label>Select Pets</label>
+    {% for pet in pets %}
+      <div>
+        <input type="checkbox" name="pet_ids" value="{{ pet.id }}"
+               {% if selected_pets and pet.id|string in selected_pets %}checked{% endif %}>
+        {{ pet.name }}
+      </div>
+    {% endfor %}
+    {% if rooms %}
+      <label>Available Rooms</label>
+      <select name="room_id">
+        {% for r in rooms %}
+          <option value="{{ r.id }}">{{ r.name }} ({{ r.room_type }}, cap {{ r.capacity }})</option>
+        {% endfor %}
+      </select>
+      <input type="hidden" name="confirm" value="1">
+      <button type="submit">Confirm Booking</button>
+    {% else %}
+      <button type="submit">Search Availability</button>
+    {% endif %}
+  </form>
+</div>
+{% endblock %}
