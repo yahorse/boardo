@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="card">
+  <h2>Your Pets</h2>
+  {% if pets %}
+    <table>
+      <thead><tr><th>Name</th><th>Breed</th><th>Birth Date</th><th>Notes</th></tr></thead>
+      <tbody>
+      {% for p in pets %}
+        <tr>
+          <td>{{ p.name }}</td>
+          <td>{{ p.breed or '—' }}</td>
+          <td>{{ p.birth_date or '—' }}</td>
+          <td>{{ p.notes or '' }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No pets yet.</p>
+  {% endif %}
+  <p><a href="{{ url_for('new_pet') }}">+ Add Pet</a></p>
+</div>
+{% endblock %}
