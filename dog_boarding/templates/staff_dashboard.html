@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="card">
+  <h2>Staff Dashboard — All Bookings</h2>
+  {% if bookings %}
+    <table>
+      <thead>
+        <tr><th>Owner</th><th>Pets</th><th>Check-In</th><th>Check-Out</th><th>Room</th><th>Status</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for item in bookings %}
+        {% set b = item.booking %}
+        <tr>
+          <td>{{ b.owner_email }}</td>
+          <td>{{ item.pets|join(', ') }}</td>
+          <td>{{ b.start_date }}</td>
+          <td>{{ b.end_date }}</td>
+          <td>{{ b.room_name }}</td>
+          <td>{{ b.status }}</td>
+          <td>
+            {% if b.status != 'confirmed' %}
+              <a href="{{ url_for('staff_confirm', bid=b.id) }}">Confirm</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No bookings.</p>
+  {% endif %}
+</div>
+{% endblock %}
