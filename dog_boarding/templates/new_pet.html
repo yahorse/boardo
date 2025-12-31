@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="card" style="max-width:600px;">
+  <h2>Add New Pet</h2>
+  <form method="post">
+    <label>Name</label>
+    <input name="name" required>
+    <label>Breed</label>
+    <input name="breed">
+    <label>Birth Date</label>
+    <input type="date" name="birth_date">
+    <label>Notes</label>
+    <textarea name="notes" rows="3"></textarea>
+    <button type="submit">Save</button>
+  </form>
+</div>
+{% endblock %}
