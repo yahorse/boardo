@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="card">
+  <h2>Welcome, {{ current_user.name or current_user.email }}</h2>
+  <h3>Your Pets</h3>
+  {% if pets %}
+    <table>
+      <thead><tr><th>Name</th><th>Breed</th><th>Birth Date</th></tr></thead>
+      <tbody>
+      {% for p in pets %}
+        <tr>
+          <td>{{ p.name }}</td>
+          <td>{{ p.breed or '—' }}</td>
+          <td>{{ p.birth_date or '—' }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No pets yet.</p>
+  {% endif %}
+  <p><a href="{{ url_for('new_pet') }}">+ Add Pet</a></p>
+  <h3>Upcoming Bookings</h3>
+  {% if bookings %}
+    <table>
+      <thead><tr><th>Check-In</th><th>Check-Out</th><th>Room</th><th>Status</th></tr></thead>
+      <tbody>
+      {% for b in bookings %}
+        <tr>
+          <td>{{ b.start_date }}</td>
+          <td>{{ b.end_date }}</td>
+          <td>{{ b.room_name }} ({{ b.room_type }})</td>
+          <td>{{ b.status }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No bookings yet.</p>
+  {% endif %}
+  <p><a href="{{ url_for('new_booking') }}">+ Book a Stay</a></p>
+</div>
+{% endblock %}
